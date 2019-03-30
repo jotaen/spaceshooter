@@ -1,11 +1,6 @@
 local lu = require('luaunit')
 local vector = require('vector')
-
-local function assertVectorEquals(actual, expected)
-    local delta = 0.1
-    lu.assertAlmostEquals(actual.x, expected.x, delta)
-    lu.assertAlmostEquals(actual.y, expected.y, delta)
-end
+local assertVectorEquals = require('assertions').assertVectorEquals
 
 local function afterRotation(rotation, initial, expected)
     local rotated = vector.rotate(initial, rotation)
@@ -21,6 +16,22 @@ function test_rotation()
     afterRotation(270, initial, vector.make(0, -1))
     afterRotation(360, initial, vector.make(1, 0))
     afterRotation(450, initial, vector.make(0, 1))
+end
+
+function test_rotation_2()
+    local initial = vector.make(0, 1)
+    afterRotation(0, initial, vector.make(0, 1))
+    afterRotation(90, initial, vector.make(-1, 0))
+    afterRotation(180, initial, vector.make(0, -1))
+    afterRotation(270, initial, vector.make(1, 0))
+end
+
+function test_rotating_nonUnitVector()
+    local initial = vector.make(0, 2)
+    afterRotation(0, initial, vector.make(0, 2))
+    afterRotation(90, initial, vector.make(-2, 0))
+    afterRotation(180, initial, vector.make(0, -2))
+    afterRotation(270, initial, vector.make(2, 0))
 end
 
 os.exit(lu.LuaUnit.run())
