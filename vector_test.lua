@@ -1,4 +1,3 @@
-local lu = require('luaunit')
 local vector = require('vector')
 local assertVectorEquals = require('assertions').assertVectorEquals
 
@@ -33,5 +32,3 @@ function test_rotating_nonUnitVector()
     afterRotation(180, initial, vector.make(0, -2))
     afterRotation(270, initial, vector.make(2, 0))
 end
-
-os.exit(lu.LuaUnit.run())

@@ -19,7 +19,7 @@ local function computePhi(v)
     end
 end
 
-function rotateUnit(unitVector, degrees)
+local function rotateUnit(unitVector, degrees)
     local phi = computePhi(unitVector)
     local newPhi = phi + math.rad(degrees)
     return make(math.cos(newPhi), math.sin(newPhi))
@@ -33,9 +33,15 @@ local function rotate(v, degrees)
     return upscaled
 end
 
+local function add(v1, v2)
+    return make(v1.x + v2.x, v1.y + v2.y)
+end
+
 return {
     make = make,
     rotate = rotate,
     scale = scale,
     length = length,
+    add = add,
+    rotateUnit = rotateUnit,
 }
