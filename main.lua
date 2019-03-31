@@ -2,7 +2,7 @@ local ship = require('ship')
 local vector = require('vector')
 
 local fighter = ship.make(vector.make(40, 40), 0)
-local velocity = 0
+local velocity = vector.make(0, 0)
 
 function love.load()
 end
@@ -19,15 +19,18 @@ function love.update(dt)
     end
     
     if love.keyboard.isDown("up") then
-        velocity = velocity + 500 * dt
+        local direction = vector.rotateUnit(vector.make(1, 0), fighter.rotation)
+        local scaled = vector.scale(direction, 500 * dt)
+        velocity = vector.add(velocity, scaled)
     end
     
     if love.keyboard.isDown("down") then
-        velocity = velocity - 500 * dt
+        local direction = vector.rotateUnit(vector.make(1, 0), fighter.rotation)
+        local scaled = vector.scale(direction, -500 * dt)
+        velocity = vector.add(velocity, scaled)
     end
     
-    local direction = vector.rotateUnit(vector.make(1, 0), fighter.rotation)
-    local scaled = vector.scale(direction, dt * velocity)
+    local scaled = vector.scale(velocity, dt)
     fighter.center = vector.add(scaled, fighter.center)
     
 end
