@@ -37,15 +37,6 @@ local function drawableShip(ship, scale)
             vector.add(ship.center, scaledShip.v2),
             vector.add(ship.center, scaledShip.v3))
     return translatedShip
-
-    -- local unrotatedTriangle = triangle(
-    --     vector.make(ship.center.x + 1 * scale, ship.center.y + 0 * scale),
-    --     vector.make(ship.center.x - 1 * scale, ship.center.y + 0.5 * scale),
-    -- vector.make(ship.center.x - 1 * scale, ship.center.y - 0.5 * scale))
-    -- return triangle(
-    --     vector.rotate(unrotatedTriangle.v1, ship.rotation),
-    --     vector.rotate(unrotatedTriangle.v2, ship.rotation),
-    -- vector.rotate(unrotatedTriangle.v3, ship.rotation))
 end
 
 return {
