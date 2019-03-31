@@ -5,6 +5,11 @@ local fighter = ship.make(vector.make(40, 40), 0)
 local velocity = vector.make(0, 0)
 
 function love.load()
+    local w, h = love.graphics.getDimensions()
+    stars = {}
+    for i = 1, 100 do
+        stars[i] = vector.make(love.math.random(0, w), love.math.random(0, h))
+    end
 end
 
 function love.update(dt)
@@ -36,6 +41,10 @@ function love.update(dt)
 end
 
 function love.draw()
+    love.graphics.setColor(1, 1, 1)
+    for i, star in ipairs(stars) do
+        love.graphics.points(star.x, star.y)
+    end
     love.graphics.setColor(0, 0.4, 0.4)
     local polygon = ship.drawableShip(fighter, 20)
     love.graphics.polygon(
