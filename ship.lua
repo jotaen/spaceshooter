@@ -11,7 +11,10 @@ end
 local function make(center, rotation)
     return {
         center = center,
-        rotation = rotation
+        rotation = rotation,
+        rotationSpeed = 300,
+        acceleration = 1000,
+        velocity = vector.make(0, 0),
     }
 end
 
