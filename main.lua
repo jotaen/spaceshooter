@@ -6,9 +6,10 @@ local function defaultFighter()
 end
 
 local fighter = defaultFighter()
+local w, h
 
 function love.load()
-    local w, h = love.graphics.getDimensions()
+    w, h = love.graphics.getDimensions()
     stars = {}
     for i = 1, 100 do
         stars[i] = vector.make(love.math.random(0, w), love.math.random(0, h))
@@ -40,6 +41,11 @@ function love.update(dt)
 
     local scaled = vector.scale(fighter.velocity, dt)
     fighter.center = vector.add(scaled, fighter.center)
+
+    if fighter.center.x < 0 then fighter.center.x = w end
+    if fighter.center.x > w then fighter.center.x = 0 end
+    if fighter.center.y < 0 then fighter.center.y = h end
+    if fighter.center.y > h then fighter.center.y = 0 end
 
 end
 
