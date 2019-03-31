@@ -1,5 +1,5 @@
 local function make(x, y)
-    return {x = x, y = y}
+    return { x = x, y = y }
 end
 
 local function scale(v, n)
@@ -13,7 +13,7 @@ end
 local function computePhi(v)
     local phi = math.acos(v.x)
     if v.y < 0 then
-        return - phi
+        return -phi
     else
         return phi
     end
