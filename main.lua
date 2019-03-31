@@ -17,7 +17,7 @@ end
 
 function love.update(dt)
     if love.keyboard.isDown("escape") then
-        love.event.quit()
+        fighter = defaultFighter()
     end
     if love.keyboard.isDown("left") then
         fighter.rotation = fighter.rotation - fighter.rotationSpeed * dt
