@@ -9,6 +9,7 @@ A 2D space shooter game.
 Begin by installing lua and love2d.
 Next, install luarocks and luaunit.
 Additionally, if you wish, you may add luacheck to your toolchain too.
+mobdebug can be used for debugging.
 
 ### Running the tests
 
