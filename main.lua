@@ -24,26 +24,21 @@ function love.update(dt)
         fighter = defaultFighter()
     end
     if love.keyboard.isDown("left") then
-        fighter.rotation = fighter.rotation - fighter.rotationSpeed * dt
+        ship.rotateLeft(fighter, dt)
     end
     if love.keyboard.isDown("right") then
-        fighter.rotation = fighter.rotation + fighter.rotationSpeed * dt
+        ship.rotateRight(fighter, dt)
     end
 
     if love.keyboard.isDown("up") then
-        local direction = vector.rotateUnit(vector.make(1, 0), fighter.rotation)
-        local scaled = vector.scale(direction, fighter.acceleration * dt)
-        fighter.velocity = vector.add(fighter.velocity, scaled)
+        ship.accelerate(fighter, dt)
     end
 
     if love.keyboard.isDown("down") then
-        local direction = vector.rotateUnit(vector.make(1, 0), fighter.rotation)
-        local scaled = vector.scale(direction, -fighter.acceleration * dt)
-        fighter.velocity = vector.add(fighter.velocity, scaled)
+        ship.decelerate(fighter, dt)
     end
 
-    local scaled = vector.scale(fighter.velocity, dt)
-    fighter.center = vector.add(scaled, fighter.center)
+    ship.update(fighter, dt)
 
     if fighter.center.x < 0 then
         fighter.center.x = w

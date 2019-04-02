@@ -42,8 +42,38 @@ local function drawableShip(ship, scale)
     return translatedShip
 end
 
+local function accelerate(ship, dt)
+    local direction = vector.rotateUnit(vector.make(1, 0), ship.rotation)
+    local scaled = vector.scale(direction, ship.acceleration * dt)
+    ship.velocity = vector.add(ship.velocity, scaled)
+end
+
+local function decelerate(ship, dt)
+    local direction = vector.rotateUnit(vector.make(1, 0), ship.rotation)
+    local scaled = vector.scale(direction, -ship.acceleration * dt)
+    ship.velocity = vector.add(ship.velocity, scaled)
+end
+
+local function rotateLeft(ship, dt)
+    ship.rotation = ship.rotation - ship.rotationSpeed * dt
+end
+
+local function rotateRight(ship, dt)
+    ship.rotation = ship.rotation + ship.rotationSpeed * dt
+end
+
+local function update(ship, dt)
+    local scaled = vector.scale(ship.velocity, dt)
+    ship.center = vector.add(scaled, ship.center)
+end
+
 return {
     triangle = triangle,
     make = make,
     drawableShip = drawableShip,
+    accelerate = accelerate,
+    decelerate = decelerate,
+    rotateLeft = rotateLeft,
+    rotateRight = rotateRight,
+    update = update,
 }
