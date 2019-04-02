@@ -8,6 +8,18 @@ end
 
 local fighter = defaultFighter()
 local w, h
+local isLaserActive = false
+local laserSoundSource
+
+function love.mousepressed()
+    isLaserActive = true
+    laserSoundSource:play()
+end
+
+function love.mousereleased()
+    isLaserActive = false
+    laserSoundSource:stop()
+end
 
 function love.load()
     w, h = love.graphics.getDimensions()
@@ -15,6 +27,8 @@ function love.load()
     for i = 1, 100 do
         stars[i] = vector.make(love.math.random(0, w), love.math.random(0, h))
     end
+    laserSoundSource = love.audio.newSource( "laser_sound.mp3", "static" )
+    laserSoundSource:setLooping(true)
 end
 
 function love.update(dt)
@@ -60,6 +74,16 @@ function love.draw()
     for _, star in ipairs(stars) do
         love.graphics.points(star.x, star.y)
     end
+
+    if isLaserActive then
+        love.graphics.setColor(1, 0, 0)
+        local dir = vector.subtract(vector.make(love.mouse.getX(), love.mouse.getY()), fighter.center)
+        local scaledDir = vector.scale(dir, 1000)
+        local src = fighter.center
+        local target = vector.add(fighter.center, scaledDir)
+        love.graphics.line(src.x, src.y, target.x, target.y)
+    end
+
     love.graphics.setColor(0, 0.4, 0.4)
     local polygon = drawableShip.make(fighter, 20)
     love.graphics.polygon(

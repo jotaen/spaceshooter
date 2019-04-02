@@ -37,11 +37,16 @@ local function add(v1, v2)
     return make(v1.x + v2.x, v1.y + v2.y)
 end
 
+local function subtract(v1, v2)
+    return make(v1.x - v2.x, v1.y - v2.y)
+end
+
 return {
     make = make,
     rotate = rotate,
     scale = scale,
     length = length,
     add = add,
+    subtract = subtract,
     rotateUnit = rotateUnit,
 }
