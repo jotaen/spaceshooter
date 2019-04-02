@@ -1,6 +1,6 @@
-local assertVectorEquals = require('assertions').assertVectorEquals
-local ship = require('ship')
-local vector = require('vector')
+local assertVectorEquals = require('src.assertions').assertVectorEquals
+local ship = require('src.ship')
+local vector = require('src.vector')
 
 function test_unrotatedShip()
     local s = ship.make(vector.make(0, 0), 0)

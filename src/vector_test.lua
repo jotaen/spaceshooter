@@ -1,5 +1,5 @@
-local vector = require('vector')
-local assertVectorEquals = require('assertions').assertVectorEquals
+local vector = require('src.vector')
+local assertVectorEquals = require('src.assertions').assertVectorEquals
 
 local function afterRotation(rotation, initial, expected)
     local rotated = vector.rotate(initial, rotation)

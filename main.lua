@@ -1,5 +1,5 @@
-local ship = require('ship')
-local vector = require('vector')
+local ship = require('src.ship')
+local vector = require('src.vector')
 
 local function defaultFighter()
     return ship.make(vector.make(40, 40), 0)
@@ -45,16 +45,23 @@ function love.update(dt)
     local scaled = vector.scale(fighter.velocity, dt)
     fighter.center = vector.add(scaled, fighter.center)
 
-    if fighter.center.x < 0 then fighter.center.x = w end
-    if fighter.center.x > w then fighter.center.x = 0 end
-    if fighter.center.y < 0 then fighter.center.y = h end
-    if fighter.center.y > h then fighter.center.y = 0 end
-
+    if fighter.center.x < 0 then
+        fighter.center.x = w
+    end
+    if fighter.center.x > w then
+        fighter.center.x = 0
+    end
+    if fighter.center.y < 0 then
+        fighter.center.y = h
+    end
+    if fighter.center.y > h then
+        fighter.center.y = 0
+    end
 end
 
 function love.draw()
     love.graphics.setColor(1, 1, 1)
-    for i, star in ipairs(stars) do
+    for _, star in ipairs(stars) do
         love.graphics.points(star.x, star.y)
     end
     love.graphics.setColor(0, 0.4, 0.4)
@@ -65,5 +72,4 @@ function love.draw()
             polygon.v2.x, polygon.v2.y,
             polygon.v3.x, polygon.v3.y
     )
-
 end
