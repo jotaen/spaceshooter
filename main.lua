@@ -18,6 +18,9 @@ end
 
 function love.update(dt)
     if love.keyboard.isDown("escape") then
+        love.event.quit()
+    end
+    if love.keyboard.isDown("r") then
         fighter = defaultFighter()
     end
     if love.keyboard.isDown("left") then
