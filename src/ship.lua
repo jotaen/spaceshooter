@@ -36,7 +36,6 @@ function Ship.make(center, rotation)
         velocity = vector.make(0, 0),
     }
     setmetatable(ship, { __index = Ship })
-
     return ship
 end
 
