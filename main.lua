@@ -1,5 +1,6 @@
 local ship = require('src.ship')
 local vector = require('src.vector')
+local drawableShip = require('src.ui.drawableShip')
 
 local function defaultFighter()
     return ship.Ship.make(vector.make(40, 40), 0)
@@ -60,7 +61,7 @@ function love.draw()
         love.graphics.points(star.x, star.y)
     end
     love.graphics.setColor(0, 0.4, 0.4)
-    local polygon = ship.drawableShip(fighter, 20)
+    local polygon = drawableShip.make(fighter, 20)
     love.graphics.polygon(
             "fill",
             polygon.v1.x, polygon.v1.y,
