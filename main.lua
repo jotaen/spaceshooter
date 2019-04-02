@@ -2,7 +2,7 @@ local ship = require('src.ship')
 local vector = require('src.vector')
 
 local function defaultFighter()
-    return ship.make(vector.make(40, 40), 0)
+    return ship.Ship.make(vector.make(40, 40), 0)
 end
 
 local fighter = defaultFighter()
@@ -24,21 +24,21 @@ function love.update(dt)
         fighter = defaultFighter()
     end
     if love.keyboard.isDown("left") then
-        ship.rotateLeft(fighter, dt)
+        fighter:rotateLeft(dt)
     end
     if love.keyboard.isDown("right") then
-        ship.rotateRight(fighter, dt)
+        fighter:rotateRight(dt)
     end
 
     if love.keyboard.isDown("up") then
-        ship.accelerate(fighter, dt)
+        fighter:accelerate(dt)
     end
 
     if love.keyboard.isDown("down") then
-        ship.decelerate(fighter, dt)
+        fighter:decelerate(dt)
     end
 
-    ship.update(fighter, dt)
+    fighter:update(dt)
 
     if fighter.center.x < 0 then
         fighter.center.x = w

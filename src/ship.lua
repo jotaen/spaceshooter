@@ -1,20 +1,12 @@
 local vector = require('src.vector')
 
+local Ship = {}
+
 local function triangle(v1, v2, v3)
     return {
         v1 = v1,
         v2 = v2,
         v3 = v3
-    }
-end
-
-local function make(center, rotation)
-    return {
-        center = center,
-        rotation = rotation,
-        rotationSpeed = 300,
-        acceleration = 1000,
-        velocity = vector.make(0, 0),
     }
 end
 
@@ -42,38 +34,46 @@ local function drawableShip(ship, scale)
     return translatedShip
 end
 
-local function accelerate(ship, dt)
-    local direction = vector.rotateUnit(vector.make(1, 0), ship.rotation)
-    local scaled = vector.scale(direction, ship.acceleration * dt)
-    ship.velocity = vector.add(ship.velocity, scaled)
+function Ship:accelerate(dt)
+    local direction = vector.rotateUnit(vector.make(1, 0), self.rotation)
+    local scaled = vector.scale(direction, self.acceleration * dt)
+    self.velocity = vector.add(self.velocity, scaled)
 end
 
-local function decelerate(ship, dt)
-    local direction = vector.rotateUnit(vector.make(1, 0), ship.rotation)
-    local scaled = vector.scale(direction, -ship.acceleration * dt)
-    ship.velocity = vector.add(ship.velocity, scaled)
+function Ship:decelerate(dt)
+    local direction = vector.rotateUnit(vector.make(1, 0), self.rotation)
+    local scaled = vector.scale(direction, -self.acceleration * dt)
+    self.velocity = vector.add(self.velocity, scaled)
 end
 
-local function rotateLeft(ship, dt)
-    ship.rotation = ship.rotation - ship.rotationSpeed * dt
+function Ship:rotateLeft(dt)
+    self.rotation = self.rotation - self.rotationSpeed * dt
 end
 
-local function rotateRight(ship, dt)
-    ship.rotation = ship.rotation + ship.rotationSpeed * dt
+function Ship:rotateRight(dt)
+    self.rotation = self.rotation + self.rotationSpeed * dt
 end
 
-local function update(ship, dt)
-    local scaled = vector.scale(ship.velocity, dt)
-    ship.center = vector.add(scaled, ship.center)
+function Ship:update(dt)
+    local scaled = vector.scale(self.velocity, dt)
+    self.center = vector.add(scaled, self.center)
+end
+
+function Ship.make(center, rotation)
+    local ship = {
+        center = center,
+        rotation = rotation,
+        rotationSpeed = 300,
+        acceleration = 1000,
+        velocity = vector.make(0, 0),
+    }
+    setmetatable(ship, { __index = Ship })
+
+    return ship
 end
 
 return {
+    Ship = Ship,
     triangle = triangle,
-    make = make,
     drawableShip = drawableShip,
-    accelerate = accelerate,
-    decelerate = decelerate,
-    rotateLeft = rotateLeft,
-    rotateRight = rotateRight,
-    update = update,
 }
