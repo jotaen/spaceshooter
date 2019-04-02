@@ -1,4 +1,5 @@
 local ship = require('src.ship')
+local Asteroid = require('src.asteroid').Asteroid
 local vector = require('src.vector')
 local drawableShip = require('src.ui.drawableShip')
 
@@ -6,7 +7,26 @@ local function defaultFighter()
     return ship.Ship.make(vector.make(40, 40), 0)
 end
 
+local function randomAsteroids(w, h)
+    local MAX_OFFSET = 1000;
+    local asteroids = {}
+    for i = 1, 100 do
+        local center = vector.make(
+                love.math.random(-MAX_OFFSET, w + MAX_OFFSET),
+                love.math.random(-MAX_OFFSET, h + MAX_OFFSET)
+        )
+        local diameter = love.math.random(20, 100)
+        local velocity = vector.make(
+                love.math.random(-300, 300),
+                love.math.random(-300, 300)
+        )
+        asteroids[i] = Asteroid.make(center, diameter, velocity)
+    end
+    return asteroids
+end
+
 local fighter = defaultFighter()
+local asteroids
 local w, h
 local isLaserActive = false
 local laserSoundSource
@@ -29,6 +49,7 @@ function love.load()
     end
     laserSoundSource = love.audio.newSource( "laser_sound.mp3", "static" )
     laserSoundSource:setLooping(true)
+    asteroids = randomAsteroids(w, h)
 end
 
 function love.update(dt)
@@ -67,6 +88,10 @@ function love.update(dt)
     if fighter.center.y > h then
         fighter.center.y = 0
     end
+
+    for _, asteroid in pairs(asteroids) do
+        asteroid:update(dt)
+    end
 end
 
 function love.draw()
@@ -92,4 +117,9 @@ function love.draw()
             polygon.v2.x, polygon.v2.y,
             polygon.v3.x, polygon.v3.y
     )
+
+    love.graphics.setColor(3, 1, 0.6)
+    for _, asteroid in pairs(asteroids) do
+        love.graphics.circle( "fill", asteroid.center.x, asteroid.center.y, asteroid.diameter / 2)
+    end
 end
