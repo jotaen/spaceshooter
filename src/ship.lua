@@ -2,24 +2,30 @@ local vector = require('src.vector')
 
 local Ship = {}
 
-function Ship:accelerate(dt)
+function Ship:changeSpeed(speedIncrement)
     local direction = vector.rotateUnit(vector.make(1, 0), self.rotation)
-    local scaled = vector.scale(direction, self.acceleration * dt)
+    local scaled = vector.scale(direction, self.acceleration * speedIncrement)
     self.velocity = vector.add(self.velocity, scaled)
+end
+
+function Ship:accelerate(dt)
+    self:changeSpeed(dt)
 end
 
 function Ship:decelerate(dt)
-    local direction = vector.rotateUnit(vector.make(1, 0), self.rotation)
-    local scaled = vector.scale(direction, -self.acceleration * dt)
-    self.velocity = vector.add(self.velocity, scaled)
+    self:changeSpeed(-dt)
+end
+
+function Ship:rotate(degreeIncrement)
+    self.rotation = self.rotation - self.rotationSpeed * degreeIncrement
 end
 
 function Ship:rotateLeft(dt)
-    self.rotation = self.rotation - self.rotationSpeed * dt
+    self:rotate(dt)
 end
 
 function Ship:rotateRight(dt)
-    self.rotation = self.rotation + self.rotationSpeed * dt
+    self:rotate(-dt)
 end
 
 function Ship:update(dt)
