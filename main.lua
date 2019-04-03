@@ -58,6 +58,7 @@ function love.update(dt)
     end
     if love.keyboard.isDown("r") then
         fighter = defaultFighter()
+        asteroids = randomAsteroids(w, h)
     end
     if love.keyboard.isDown("left") then
         fighter:rotateLeft(dt)
