@@ -60,18 +60,18 @@ function love.update(dt)
         fighter = defaultFighter()
         asteroids = randomAsteroids(w, h)
     end
-    if love.keyboard.isDown("left") then
+    if love.keyboard.isDown("left") or love.keyboard.isDown("a") then
         fighter:rotateLeft(dt)
     end
-    if love.keyboard.isDown("right") then
+    if love.keyboard.isDown("right") or love.keyboard.isDown("d") then
         fighter:rotateRight(dt)
     end
 
-    if love.keyboard.isDown("up") then
+    if love.keyboard.isDown("up") or love.keyboard.isDown("w") then
         fighter:accelerate(dt)
     end
 
-    if love.keyboard.isDown("down") then
+    if love.keyboard.isDown("down") or love.keyboard.isDown("s") then
         fighter:decelerate(dt)
     end
 
