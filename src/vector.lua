@@ -11,12 +11,8 @@ local function length(v)
 end
 
 local function computePhi(v)
-    local phi = math.acos(v.x)
-    if v.y < 0 then
-        return -phi
-    else
-        return phi
-    end
+    local sign = v.y < 0 and -1 or 1
+    return sign * math.acos(v.x)
 end
 
 local function rotateUnit(unitVector, degrees)
