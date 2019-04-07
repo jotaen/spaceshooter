@@ -29,7 +29,7 @@ function Ship:rotateRight(dt)
     self:rotate(-dt)
 end
 
-function Ship.make(center, rotation)
+local function make(center, rotation)
     local ship = Entity.make('ship', center, 15, vector.make(0, 0)) -- todo calculate radius
     ship.rotation = rotation
     ship.rotationSpeed = 300
@@ -39,5 +39,6 @@ function Ship.make(center, rotation)
 end
 
 return {
+    make = make,
     Ship = Ship,
 }

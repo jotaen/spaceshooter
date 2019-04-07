@@ -1,5 +1,5 @@
 local lu = require('luaunit')
-local Ship = require('src.ship').Ship
+local ship = require('src.ship')
 local vector = require('src.geometry.vector')
 
 local TIME_PASSED = 1
@@ -7,7 +7,7 @@ local TIME_PASSED = 1
 TestShip = {}
 
 function TestShip:setUp()
-    self.ship = Ship.make(vector.make(0, 0), 0)
+    self.ship = ship.make(vector.make(0, 0), 0)
 end
 
 function TestShip:test_accelerateIncreasesVelocity()

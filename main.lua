@@ -7,7 +7,7 @@ local CollisionDetector = require('src.collisionDetector')
 local Entity = require('src.entity')
 
 local function defaultFighter()
-    return ship.Ship.make(vector.make(40, 40), 0)
+    return ship.make(vector.make(40, 40), 0)
 end
 
 local function makeRandomAsteroid(w, h)
