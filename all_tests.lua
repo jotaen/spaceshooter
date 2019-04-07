@@ -1,5 +1,7 @@
 local lu = require('luaunit')
 
+print(os.date())
+
 require('src.geometry.vector_test')
 require('src.ui.drawableShip_test')
 require('src.ship_test')
