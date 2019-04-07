@@ -21,8 +21,13 @@ local function area(circle)
     return math.pi * circle.radius ^ 2
 end
 
+local function radius(circleArea)
+    return math.sqrt(circleArea / math.pi)
+end
+
 return {
     make = make,
     isOverlapping = isOverlapping,
     area = area,
+    radius = radius
 }

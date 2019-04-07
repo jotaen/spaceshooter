@@ -64,6 +64,10 @@ function test_fullyOverlappingCirclesCollide()
     lu.assertTrue(circle.isOverlapping(circle1, circle2))
 end
 
+--
+-- RADIUS / AREA
+--
+
 function test_unitCircleHasAreaPi()
     local unitCircle = circle.make(vector.make(0, 0), 1)
     lu.assertAlmostEquals(circle.area(unitCircle), math.pi, 0.01)
@@ -72,4 +76,12 @@ end
 function test_circleAreaComputationWorks()
     local unitCircle = circle.make(vector.make(0, 0), 21)
     lu.assertAlmostEquals(circle.area(unitCircle), 1385.5, 0.1)
+end
+
+function test_piAreaIsRadiusOne()
+    lu.assertAlmostEquals(circle.radius(math.pi), 1, 0.01)
+end
+
+function test_areaRadiusComputationWorks()
+    lu.assertAlmostEquals(circle.radius(1385.5), 21, 0.1)
 end

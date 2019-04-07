@@ -1,6 +1,6 @@
 local ship = require('src.ship')
 local circle = require('src.geometry.circle')
-local Asteroid = require('src.asteroid').Asteroid
+local Asteroid = require('src.asteroid')
 local vector = require('src.geometry.vector')
 local drawableShip = require('src.ui.drawableShip')
 local CollisionDetector = require('src.collisionDetector')
@@ -18,8 +18,8 @@ local function makeRandomAsteroid(w, h)
     )
     local radius = love.math.random(10, 50)
     local velocity = vector.make(
-            love.math.random(-300, 300),
-            love.math.random(-300, 300)
+            love.math.random(-100, 100),
+            love.math.random(-100, 100)
     )
     return Asteroid.make(center, radius, velocity)
 end
@@ -130,7 +130,9 @@ function love.update(dt)
                 local largerAsteroid = collidable1.radius > collidable2.radius and collidable1 or collidable2
                 local smallerAsteroid = collidable1.radius <= collidable2.radius and collidable1 or collidable2
                 smallerAsteroid.isDestroyed = true
-                largerAsteroid.radius = largerAsteroid.radius + smallerAsteroid.radius * 0.2
+                local mergedAsteroid = Asteroid.merge(largerAsteroid, smallerAsteroid)
+                largerAsteroid.radius = mergedAsteroid.radius
+                largerAsteroid.velocity = mergedAsteroid.velocity
                 return
             end
             if collidable1.type == 'asteroid' then

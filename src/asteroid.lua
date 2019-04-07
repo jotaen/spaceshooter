@@ -1,13 +1,23 @@
 local Entity = require('src.entity')
+local circle = require('src.geometry.circle')
+local vector = require('src.geometry.vector')
 
 local Asteroid = {}
 
-function Asteroid.make(center, radius, velocity)
+local function make(center, radius, velocity)
     local asteroid = Entity.make('asteroid', center, radius, velocity)
     setmetatable(asteroid, { __index = Asteroid })
     return asteroid
 end
 
+local function merge(asteroid1, asteroid2)
+    local summedArea = circle.area(asteroid1) + circle.area(asteroid2)
+    local newRadius = circle.radius(summedArea)
+    local newVelocity = vector.add(asteroid1.velocity, asteroid2.velocity)
+    return make(asteroid1.center, newRadius, newVelocity)
+end
+
 return {
-    Asteroid = Asteroid,
+    make = make,
+    merge = merge
 }
