@@ -13,9 +13,9 @@ local function makeResolverSpy()
     }
 end
 
-local function makeDummyCollidable(position)
+local function makeDummyCollidable(center)
     return {
-        position = position,
+        center = center,
         radius = 1
     }
 end
