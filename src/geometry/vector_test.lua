@@ -1,4 +1,4 @@
-local vector = require('src.vector')
+local vector = require('src.geometry.vector')
 local assertVectorEquals = require('src.assertions').assertVectorEquals
 
 local function afterRotation(rotation, initial, expected)

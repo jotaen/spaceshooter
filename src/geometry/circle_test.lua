@@ -1,6 +1,10 @@
-local vector = require('src.vector')
+local vector = require('src.geometry.vector')
 local lu = require('luaunit')
-local circle = require('src.circle')
+local circle = require('src.geometry.circle')
+
+--
+-- CIRCLE CREATION
+--
 
 function test_circlesCannotHaveZeroRadius()
     lu.assertError(function()
@@ -13,6 +17,10 @@ function test_circlesCannotHaveNegativeRadius()
         circle.make(vector.make(0,0), -1)
     end)
 end
+
+--
+-- CIRCLE OVERLAP
+--
 
 function test_nonOverlappingCirclesDoNotCollide()
     local circle1 = circle.make(vector.make(1,1), 1)

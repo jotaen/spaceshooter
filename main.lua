@@ -1,6 +1,6 @@
 local ship = require('src.ship')
 local Asteroid = require('src.asteroid').Asteroid
-local vector = require('src.vector')
+local vector = require('src.geometry.vector')
 local drawableShip = require('src.ui.drawableShip')
 
 local function defaultFighter()

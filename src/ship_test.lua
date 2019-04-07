@@ -1,6 +1,6 @@
 local lu = require('luaunit')
 local Ship = require('src.ship').Ship
-local vector = require('src.vector')
+local vector = require('src.geometry.vector')
 
 local TIME_PASSED = 1
 
