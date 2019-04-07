@@ -96,19 +96,19 @@ function love.update(dt)
 
     if fighter.center.x < 0 then
         fighter.center.x = 0
-        fighter.movement = vector.make(0, 0)
+        fighter.velocity = vector.make(0, 0)
     end
     if fighter.center.x > w then
         fighter.center.x = w
-        fighter.movement = vector.make(0, 0)
+        fighter.velocity = vector.make(0, 0)
     end
     if fighter.center.y < 0 then
         fighter.center.y = 0
-        fighter.movement = vector.make(0, 0)
+        fighter.velocity = vector.make(0, 0)
     end
     if fighter.center.y > h then
         fighter.center.y = h
-        fighter.movement = vector.make(0, 0)
+        fighter.velocity = vector.make(0, 0)
     end
 
     for i, asteroid in pairs(asteroids) do
