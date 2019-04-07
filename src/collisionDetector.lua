@@ -2,7 +2,7 @@ local circle = require('src.geometry.circle')
 
 local CollisionDetector = {}
 
-function CollisionDetector.make(resolver)
+function make(resolver)
     local detector = { resolver = resolver, x = 2 }
     setmetatable(detector, { __index = CollisionDetector })
     return detector
@@ -20,5 +20,5 @@ function CollisionDetector:detect(collidables)
 end
 
 return {
-    CollisionDetector = CollisionDetector,
+    make = make
 }
