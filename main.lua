@@ -1,4 +1,5 @@
 local ship = require('src.ship')
+local circle = require('src.geometry.circle')
 local Asteroid = require('src.asteroid').Asteroid
 local vector = require('src.geometry.vector')
 local drawableShip = require('src.ui.drawableShip')
@@ -35,6 +36,12 @@ local asteroids
 local w, h
 local isLaserActive = false
 local laserSoundSource
+
+local score = 0
+local time = os.time()
+function remainingTime()
+    return time - os.time()  + 60
+end
 
 function love.mousepressed()
     isLaserActive = true
@@ -119,9 +126,11 @@ function love.update(dt)
             end
             if collidable1.type == 'asteroid' then
                 collidable1.isDestroyed = true
+                score = math.ceil( score + circle.area(collidable1) / 100)
             end
             if collidable2.type == 'asteroid' then
                 collidable2.isDestroyed = true
+                score = math.ceil( score + circle.area(collidable1) / 100)
             end
         end
     })
@@ -131,6 +140,11 @@ function love.update(dt)
         if asteroid.isDestroyed then
             asteroids[i] = makeRandomAsteroid(w, h)
         end
+    end
+
+    if remainingTime() <= 0 then
+        print("Tadaaa, your highscore was " .. score)
+        love.event.quit()
     end
 end
 
@@ -163,4 +177,10 @@ function love.draw()
     for _, asteroid in pairs(asteroids) do
         love.graphics.circle("fill", asteroid.center.x, asteroid.center.y, asteroid.radius)
     end
+
+    local statusText = "TIME: " .. remainingTime() .. "s, SCORE: " .. score
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.print(statusText, 20, h-30)
 end
+
+

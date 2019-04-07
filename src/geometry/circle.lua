@@ -17,7 +17,12 @@ local function isOverlapping(circle1, circle2)
     return diffVectorLength <= radiusSum
 end
 
+local function area(circle)
+    return math.pi * circle.radius ^ 2
+end
+
 return {
     make = make,
     isOverlapping = isOverlapping,
+    area = area,
 }
