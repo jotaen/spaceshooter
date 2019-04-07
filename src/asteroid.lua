@@ -8,9 +8,8 @@ function Asteroid:update(dt)
     self.center = vector.add(scaled, self.center)
 end
 
-function Asteroid.make(center, diameter, velocity)
-    local asteroid = Entity.make('asteroid', center, diameter / 2)
-    asteroid.diameter = diameter -- todo remove
+function Asteroid.make(center, radius, velocity)
+    local asteroid = Entity.make('asteroid', center, radius)
     asteroid.velocity = velocity
 
     setmetatable(asteroid, { __index = Asteroid })

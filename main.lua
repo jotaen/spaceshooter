@@ -11,15 +11,15 @@ end
 local function makeRandomAsteroid(w, h)
     local MAX_OFFSET = 1000;
     local center = vector.make(
-                love.math.random(-MAX_OFFSET, w + MAX_OFFSET),
-                love.math.random(-MAX_OFFSET, h + MAX_OFFSET)
-        )
-        local diameter = love.math.random(20, 100)
-        local velocity = vector.make(
-                love.math.random(-300, 300),
-                love.math.random(-300, 300)
-        )
-        return Asteroid.make(center, diameter, velocity)
+            love.math.random(-MAX_OFFSET, w + MAX_OFFSET),
+            love.math.random(-MAX_OFFSET, h + MAX_OFFSET)
+    )
+    local radius = love.math.random(10, 50)
+    local velocity = vector.make(
+            love.math.random(-300, 300),
+            love.math.random(-300, 300)
+    )
+    return Asteroid.make(center, radius, velocity)
 end
 
 local function randomAsteroids(w, h)
@@ -52,7 +52,7 @@ function love.load()
     for i = 1, 100 do
         stars[i] = vector.make(love.math.random(0, w), love.math.random(0, h))
     end
-    laserSoundSource = love.audio.newSource( "laser_sound.mp3", "static" )
+    laserSoundSource = love.audio.newSource("laser_sound.mp3", "static")
     laserSoundSource:setLooping(true)
     asteroids = randomAsteroids(w, h)
 end
@@ -95,8 +95,12 @@ function love.update(dt)
         fighter.center.y = 0
     end
 
-    for _, asteroid in pairs(asteroids) do
+    for i, asteroid in pairs(asteroids) do
         asteroid:update(dt)
+        if asteroid.center.x < -w or asteroid.center.x > 2 * w or asteroid.center.y < -h or asteroid.center.y > 2 * h
+        then
+            asteroids[i] = makeRandomAsteroid(w, h)
+        end
     end
 
     local collidables = { fighter }
@@ -106,6 +110,13 @@ function love.update(dt)
 
     local detector = CollisionDetector.make({
         handleCollision = function(self, collidable1, collidable2)
+            if collidable1.type == 'asteroid' and collidable2.type == 'asteroid' then
+                local largerAsteroid = collidable1.radius > collidable2.radius and collidable1 or collidable2
+                local smallerAsteroid = collidable1.radius <= collidable2.radius and collidable1 or collidable2
+                smallerAsteroid.isDestroyed = true
+                largerAsteroid.radius = largerAsteroid.radius + smallerAsteroid.radius * 0.2
+                return
+            end
             if collidable1.type == 'asteroid' then
                 collidable1.isDestroyed = true
             end
@@ -146,9 +157,10 @@ function love.draw()
             polygon.v2.x, polygon.v2.y,
             polygon.v3.x, polygon.v3.y
     )
+    love.graphics.circle("line", fighter.center.x, fighter.center.y, fighter.radius)
 
     love.graphics.setColor(3, 1, 0.6)
     for _, asteroid in pairs(asteroids) do
-        love.graphics.circle( "fill", asteroid.center.x, asteroid.center.y, asteroid.diameter / 2)
+        love.graphics.circle("fill", asteroid.center.x, asteroid.center.y, asteroid.radius)
     end
 end

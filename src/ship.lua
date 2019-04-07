@@ -39,7 +39,7 @@ function Ship:update(dt)
 end
 
 function Ship.make(center, rotation)
-    local ship = Entity.make('ship', center, 10) -- todo calculate radius
+    local ship = Entity.make('ship', center, 15) -- todo calculate radius
     ship.rotation = rotation
     ship.rotationSpeed = 300
     ship.acceleration = 1000
