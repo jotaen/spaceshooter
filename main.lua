@@ -40,8 +40,12 @@ local laserSoundSource
 
 local score = 0
 local time = os.time()
-function remainingTime()
+local function remainingTime()
     return time - os.time()  + 60
+end
+
+local function scoreValue(collidable)
+    return math.ceil(circle.area(collidable) / 1000)
 end
 
 function love.mousepressed()
@@ -131,11 +135,11 @@ function love.update(dt)
             end
             if collidable1.type == 'asteroid' then
                 collidable1.isDestroyed = true
-                score = score + math.ceil(circle.area(collidable1) / 1000)
+                score = score + scoreValue(collidable1)
             end
             if collidable2.type == 'asteroid' then
                 collidable2.isDestroyed = true
-                score = score + math.ceil( circle.area(collidable2) / 1000)
+                score = score + scoreValue(collidable2)
             end
         end
     })
