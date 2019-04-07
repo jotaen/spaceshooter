@@ -130,11 +130,11 @@ function love.update(dt)
             end
             if collidable1.type == 'asteroid' then
                 collidable1.isDestroyed = true
-                score = math.ceil( score + circle.area(collidable1) / 100)
+                score = score + math.ceil(circle.area(collidable1) / 1000)
             end
             if collidable2.type == 'asteroid' then
                 collidable2.isDestroyed = true
-                score = math.ceil( score + circle.area(collidable1) / 100)
+                score = score + math.ceil( circle.area(collidable2) / 1000)
             end
         end
     })
