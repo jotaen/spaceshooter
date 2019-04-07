@@ -2,16 +2,15 @@ local ship = require('src.ship')
 local Asteroid = require('src.asteroid').Asteroid
 local vector = require('src.geometry.vector')
 local drawableShip = require('src.ui.drawableShip')
+local CollisionDetector = require('src.collisionDetector')
 
 local function defaultFighter()
     return ship.Ship.make(vector.make(40, 40), 0)
 end
 
-local function randomAsteroids(w, h)
+local function makeRandomAsteroid(w, h)
     local MAX_OFFSET = 1000;
-    local asteroids = {}
-    for i = 1, 100 do
-        local center = vector.make(
+    local center = vector.make(
                 love.math.random(-MAX_OFFSET, w + MAX_OFFSET),
                 love.math.random(-MAX_OFFSET, h + MAX_OFFSET)
         )
@@ -20,7 +19,13 @@ local function randomAsteroids(w, h)
                 love.math.random(-300, 300),
                 love.math.random(-300, 300)
         )
-        asteroids[i] = Asteroid.make(center, diameter, velocity)
+        return Asteroid.make(center, diameter, velocity)
+end
+
+local function randomAsteroids(w, h)
+    local asteroids = {}
+    for i = 1, 100 do
+        asteroids[i] = makeRandomAsteroid(w, h)
     end
     return asteroids
 end
@@ -92,6 +97,29 @@ function love.update(dt)
 
     for _, asteroid in pairs(asteroids) do
         asteroid:update(dt)
+    end
+
+    local collidables = { fighter }
+    for _, asteroid in pairs(asteroids) do
+        table.insert(collidables, asteroid)
+    end
+
+    local detector = CollisionDetector.make({
+        handleCollision = function(self, collidable1, collidable2)
+            if collidable1.type == 'asteroid' then
+                collidable1.isDestroyed = true
+            end
+            if collidable2.type == 'asteroid' then
+                collidable2.isDestroyed = true
+            end
+        end
+    })
+    detector:detect(collidables)
+
+    for i, asteroid in pairs(asteroids) do
+        if asteroid.isDestroyed then
+            asteroids[i] = makeRandomAsteroid(w, h)
+        end
     end
 end
 
