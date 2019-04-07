@@ -4,17 +4,9 @@ local Entity = require('src.entity')
 local Ship = {}
 
 function Ship:changeSpeed(speedIncrement)
-    local thrustDirection = vector.rotateUnit(vector.make(1, 0), self.rotation)
-    local scaled = vector.scale(thrustDirection, self.acceleration * speedIncrement)
-    self.movement = vector.add(self.movement, scaled)
-end
-
-function Ship:rotate(degreeIncrement)
-    self.rotation = self.rotation - self.rotationSpeed * degreeIncrement
-end
-
-function Ship:velocity()
-    return vector.length(self.movement)
+    local direction = vector.rotateUnit(vector.make(1, 0), self.rotation)
+    local scaled = vector.scale(direction, self.acceleration * speedIncrement)
+    self.velocity = vector.add(self.velocity, scaled)
 end
 
 function Ship:accelerate(dt)
@@ -23,6 +15,10 @@ end
 
 function Ship:decelerate(dt)
     self:changeSpeed(-dt)
+end
+
+function Ship:rotate(degreeIncrement)
+    self.rotation = self.rotation - self.rotationSpeed * degreeIncrement
 end
 
 function Ship:rotateLeft(dt)
@@ -34,7 +30,7 @@ function Ship:rotateRight(dt)
 end
 
 function Ship:update(dt)
-    local scaled = vector.scale(self.movement, dt)
+    local scaled = vector.scale(self.velocity, dt)
     self.center = vector.add(scaled, self.center)
 end
 
@@ -43,7 +39,7 @@ function Ship.make(center, rotation)
     ship.rotation = rotation
     ship.rotationSpeed = 300
     ship.acceleration = 1000
-    ship.movement = vector.make(0, 0)
+    ship.velocity = vector.make(0, 0)
     setmetatable(ship, { __index = Ship })
     return ship
 end

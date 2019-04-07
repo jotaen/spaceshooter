@@ -11,17 +11,17 @@ function TestShip:setUp()
 end
 
 function TestShip:test_accelerateIncreasesVelocity()
-    local previousVelocity = self.ship:velocity()
+    local previousVelocity = self.ship.velocity
     self.ship:accelerate(TIME_PASSED)
-    lu.assertIsTrue(self.ship:velocity() > previousVelocity)
+    lu.assertIsTrue(vector.length(self.ship.velocity) > vector.length(previousVelocity))
 end
 
 function TestShip:test_decelerateDecreasesVelocity()
     self.ship:accelerate(TIME_PASSED)
     self.ship:accelerate(TIME_PASSED)
-    local previousVelocity = self.ship:velocity()
+    local previousVelocity = self.ship.velocity
     self.ship:decelerate(TIME_PASSED)
-    lu.assertIsTrue(self.ship:velocity() < previousVelocity)
+    lu.assertIsTrue(vector.length(self.ship.velocity) < vector.length(previousVelocity))
 end
 
 function TestShip:test_rotateLeft()
