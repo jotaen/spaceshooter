@@ -1,4 +1,5 @@
 local vector = require('src.geometry.vector')
+local Entity = require('src.entity')
 
 local Ship = {}
 
@@ -38,13 +39,11 @@ function Ship:update(dt)
 end
 
 function Ship.make(center, rotation)
-    local ship = {
-        center = center,
-        rotation = rotation,
-        rotationSpeed = 300,
-        acceleration = 1000,
-        movement = vector.make(0, 0),
-    }
+    local ship = Entity.make('ship', center, 10) -- todo calculate radius
+    ship.rotation = rotation
+    ship.rotationSpeed = 300
+    ship.acceleration = 1000
+    ship.movement = vector.make(0, 0)
     setmetatable(ship, { __index = Ship })
     return ship
 end
