@@ -35,10 +35,3 @@ function TestShip:test_rotateRight()
     self.ship:rotateRight(TIME_PASSED)
     lu.assertIsTrue(previousRotation < self.ship.rotation)
 end
-
-function TestShip:test_updateMovesShip()
-    local previousPosition = self.ship.center
-    self.ship:accelerate(TIME_PASSED)
-    self.ship:update(TIME_PASSED)
-    lu.assertIsTrue(vector.length(previousPosition) < vector.length(self.ship.center))
-end

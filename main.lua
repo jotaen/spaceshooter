@@ -4,6 +4,7 @@ local Asteroid = require('src.asteroid').Asteroid
 local vector = require('src.geometry.vector')
 local drawableShip = require('src.ui.drawableShip')
 local CollisionDetector = require('src.collisionDetector')
+local Entity = require('src.entity')
 
 local function defaultFighter()
     return ship.Ship.make(vector.make(40, 40), 0)
@@ -87,7 +88,7 @@ function love.update(dt)
         fighter:decelerate(dt)
     end
 
-    fighter:update(dt)
+    Entity.move(fighter, dt)
 
     if fighter.center.x < 0 then
         fighter.center.x = 0
@@ -107,7 +108,7 @@ function love.update(dt)
     end
 
     for i, asteroid in pairs(asteroids) do
-        asteroid:update(dt)
+        Entity.move(asteroid, dt)
         if asteroid.center.x < -w or asteroid.center.x > 2 * w or asteroid.center.y < -h or asteroid.center.y > 2 * h
         then
             asteroids[i] = makeRandomAsteroid(w, h)

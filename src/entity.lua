@@ -1,12 +1,20 @@
-local function make(type, center, radius)
+local vector = require('src.geometry.vector')
+
+local function move(entity, dt)
+    local scaled = vector.scale(entity.velocity, dt)
+    entity.center = vector.add(scaled, entity.center)
+end
+
+local function make(type, center, radius, velocity)
     return {
         type = type,
         center = center,
         radius = radius,
-        -- todo lift up velocity
+        velocity = velocity,
     }
 end
 
 return {
-    make = make
+    make = make,
+    move = move,
 }

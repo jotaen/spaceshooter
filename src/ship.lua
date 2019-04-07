@@ -29,17 +29,11 @@ function Ship:rotateRight(dt)
     self:rotate(-dt)
 end
 
-function Ship:update(dt)
-    local scaled = vector.scale(self.velocity, dt)
-    self.center = vector.add(scaled, self.center)
-end
-
 function Ship.make(center, rotation)
-    local ship = Entity.make('ship', center, 15) -- todo calculate radius
+    local ship = Entity.make('ship', center, 15, vector.make(0, 0)) -- todo calculate radius
     ship.rotation = rotation
     ship.rotationSpeed = 300
     ship.acceleration = 1000
-    ship.velocity = vector.make(0, 0)
     setmetatable(ship, { __index = Ship })
     return ship
 end
