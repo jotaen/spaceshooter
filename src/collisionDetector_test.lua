@@ -5,8 +5,10 @@ local Detector = require('src.collisionDetector').CollisionDetector
 local function makeResolverSpy()
     return {
         callCount = 0,
-        handleCollision = function(self, collision)
+        lastCollision = nil,
+        handleCollision = function(self, collidable1, collidable2)
             self.callCount = self.callCount + 1
+            self.lastCollision = {collidable1, collidable2}
         end
     }
 end
@@ -79,4 +81,14 @@ function TestCollisionDetector:test_callsResolverForEveryCollision()
     }
     self.detector:detect(collidables)
     lu.assertEquals(self.resolver.callCount, 4)
+end
+
+function TestCollisionDetector:test_passesCollidablesToResolver()
+    local collidables = {
+        makeDummyCollidable(vector.make(0, 0)),
+        makeDummyCollidable(vector.make(1, 0))
+    }
+    self.detector:detect(collidables)
+    lu.assertEquals(self.resolver.lastCollision[1], collidables[1])
+    lu.assertEquals(self.resolver.lastCollision[2], collidables[2])
 end

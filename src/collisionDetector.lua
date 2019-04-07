@@ -13,7 +13,7 @@ function CollisionDetector:detect(collidables)
     for j = 1, len do
         for k = j, len do
             if j ~= k and circle.isOverlapping(collidables[j], collidables[k]) then
-                self.resolver:handleCollision({})
+                self.resolver:handleCollision(collidables[j], collidables[k])
             end
         end
     end
