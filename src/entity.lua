@@ -5,7 +5,6 @@ local function move(entity, dt)
     entity.center = vector.add(scaled, entity.center)
 end
 
----
 --- @param type (string)
 --- @param center (vector)
 --- @param radius (number)

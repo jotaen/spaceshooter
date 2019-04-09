@@ -4,7 +4,6 @@ local vector = require('src.geometry.vector')
 
 local Asteroid = {}
 
----
 --- @param center (vector)
 --- @param radius (number)
 --- @param velocity (vector)
@@ -14,7 +13,6 @@ local function make(center, radius, velocity)
     return asteroid
 end
 
----
 --- @param asteroid1 (Asteroid)
 --- @param asteroid2 (Asteroid)
 local function merge(asteroid1, asteroid2)

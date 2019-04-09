@@ -29,7 +29,6 @@ function Ship:rotateRight(dt)
     self:rotate(-dt)
 end
 
----
 --- @param center (vector)
 --- @param rotation (number) in degrees
 local function make(center, rotation)

@@ -1,4 +1,3 @@
----
 --- @param x (number)
 --- @param y (number)
 local function make(x, y)

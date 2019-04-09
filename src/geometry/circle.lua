@@ -1,6 +1,5 @@
 local vector = require('src.geometry.vector')
 
----
 --- @param center (vector)
 --- @param radius (number)
 local function make(center, radius)
