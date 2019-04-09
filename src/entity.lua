@@ -5,6 +5,11 @@ local function move(entity, dt)
     entity.center = vector.add(scaled, entity.center)
 end
 
+---
+--- @param type (string)
+--- @param center (vector)
+--- @param radius (number)
+--- @param velocity (vector)
 local function make(type, center, radius, velocity)
     return {
         type = type,

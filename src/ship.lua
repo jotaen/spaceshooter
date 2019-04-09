@@ -29,6 +29,9 @@ function Ship:rotateRight(dt)
     self:rotate(-dt)
 end
 
+---
+--- @param center (vector)
+--- @param rotation (number) in degrees
 local function make(center, rotation)
     local ship = Entity.make('ship', center, 15, vector.make(0, 0)) -- todo calculate radius
     ship.rotation = rotation

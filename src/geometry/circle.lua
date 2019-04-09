@@ -1,5 +1,8 @@
 local vector = require('src.geometry.vector')
 
+---
+--- @param center (vector)
+--- @param radius (number)
 local function make(center, radius)
     if radius <= 0 then
         error('NON_POSITIVE_RADIUS')
