@@ -37,9 +37,9 @@ local function randomAsteroids(worldWidth, worldHeight)
     return newAsteroids
 end
 
-function World:reset(worldWidth, worldHeight)
+function World:reset()
     self.fighter = defaultFighter()
-    self.asteroids = randomAsteroids(worldWidth, worldHeight)
+    self.asteroids = randomAsteroids(self.width, self.height)
 end
 
 function World:update(dt)
