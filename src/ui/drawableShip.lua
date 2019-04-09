@@ -15,9 +15,7 @@ local shipShape = triangle(
 )
 
 local function make(ship, scale)
-    if scale == nil then
-        scale = 1
-    end
+    scale = scale or 1
     local rotatedShip = triangle(
             vector.rotate(shipShape.v1, ship.rotation),
             vector.rotate(shipShape.v2, ship.rotation),
