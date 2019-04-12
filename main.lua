@@ -1,6 +1,7 @@
 local World = require('src.world')
 local vector = require('src.geometry.vector')
 local drawableShip = require('src.ui.drawableShip')
+local camera = require('src.ui.camera').make()
 
 local world = nil
 
@@ -51,6 +52,8 @@ function love.update(dt)
     end
 
     world:update(dt)
+
+    camera:moveTo(world.fighter)
 end
 
 function love.mousepressed()
@@ -79,18 +82,18 @@ function love.draw()
     end
 
     love.graphics.setColor(0, 0.4, 0.4)
-    local polygon = drawableShip.make(world.fighter, 20)
+    local polygon = drawableShip.make(camera:project(world.fighter), 20)
     love.graphics.polygon(
             "fill",
             polygon.v1.x, polygon.v1.y,
             polygon.v2.x, polygon.v2.y,
             polygon.v3.x, polygon.v3.y
     )
-    love.graphics.circle("line", world.fighter.center.x, world.fighter.center.y, world.fighter.radius)
 
     love.graphics.setColor(3, 1, 0.6)
     for _, asteroid in pairs(world.asteroids) do
-        love.graphics.circle("fill", asteroid.center.x, asteroid.center.y, asteroid.radius)
+        local a = camera:project(asteroid)
+        love.graphics.circle("fill", a.center.x, a.center.y, a.radius)
     end
 
     local statusText = "TIME: " .. remainingTime() .. "s, SCORE: " .. world.score

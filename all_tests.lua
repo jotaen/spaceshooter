@@ -9,5 +9,6 @@ require('src.asteroid_test')
 require('src.geometry.circle_test')
 require('src.collisionDetector_test')
 require('src.entity_test')
+require('src.ui.camera_test')
 
 os.exit(lu.LuaUnit.run())

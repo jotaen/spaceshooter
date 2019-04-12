@@ -47,4 +47,5 @@ return {
     add = add,
     subtract = subtract,
     rotateUnit = rotateUnit,
+    zero = function () return make(0, 0) end
 }
