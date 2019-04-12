@@ -1,1 +1,1 @@
-os.execute( os.getenv('LOVE_PATH') .. " .")
+os.execute(  "love .")
