@@ -21,7 +21,7 @@ function Camera:projectToCanvas(entity)
     local entityCenterInWorld = entity.center
     local diffWorld = vector.subtract(entityCenterInWorld, cameraTopLeftOriginInWorld)
     return {
-        center = vector.make(diffWorld.x, -diffWorld.y),
+        center = vector.make(diffWorld.x, diffWorld.y),
         radius = entity.radius,
         rotation = entity.rotation and entity.rotation
     }

@@ -8,7 +8,7 @@ function test_cameraPointingToOrigin_doesNotTranslateEntity()
     local camera = Camera.make(vector.zero(), 2, 2)
 
     local projected = camera:projectToCanvas(entity)
-    assertions.assertVectorEquals(projected.center, vector.make(1, 1))
+    assertions.assertVectorEquals(projected.center, vector.make(1, -1))
 end
 
 function test_entityAtOrigin_isCorrectlyProjectedByMovedCamera()
@@ -16,5 +16,5 @@ function test_entityAtOrigin_isCorrectlyProjectedByMovedCamera()
     local camera = Camera.make(vector.make(1, 1), 2, 2)
 
     local projected = camera:projectToCanvas(entity)
-    assertions.assertVectorEquals(projected.center, vector.make(0, 2))
+    assertions.assertVectorEquals(projected.center, vector.make(0, -2))
 end

@@ -27,11 +27,11 @@ end
 function TestShip:test_rotateLeft()
     local previousRotation = self.ship.rotation
     self.ship:rotateLeft(TIME_PASSED)
-    lu.assertIsTrue(previousRotation > self.ship.rotation)
+    lu.assertIsTrue(previousRotation < self.ship.rotation)
 end
 
 function TestShip:test_rotateRight()
     local previousRotation = self.ship.rotation
     self.ship:rotateRight(TIME_PASSED)
-    lu.assertIsTrue(previousRotation < self.ship.rotation)
+    lu.assertIsTrue(previousRotation > self.ship.rotation)
 end

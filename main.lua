@@ -59,8 +59,10 @@ function love.draw()
         love.graphics.points(star.x, star.y)
     end
 
-    love.graphics.setColor(0, 0.4, 0.4)
+    love.graphics.scale(1, -1)
     local polygon = drawableShip.make(camera:projectToCanvas(world.fighter), 20)
+
+    love.graphics.setColor(0, 0.4, 0.4)
     love.graphics.polygon(
             "fill",
             polygon.v1.x, polygon.v1.y,
@@ -73,6 +75,7 @@ function love.draw()
         local a = camera:projectToCanvas(asteroid)
         love.graphics.circle("fill", a.center.x, a.center.y, a.radius)
     end
+    love.graphics.scale(1, -1)
 
     local statusText = "TIME: " .. remainingTime() .. "s, SCORE: " .. world.score
     love.graphics.setColor(1, 1, 1)

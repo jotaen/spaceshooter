@@ -1,8 +1,9 @@
 # WIP
 
 - Tracking camera
-  - Fix axis inversion
-  - Adjust asteroid lifecycle
+  - Move stars slightly in background (optical layers)
+  - Camera drag
+  - Adjust asteroid lifecycle and distribution
 
 # Backlog (unprioritised)
 
