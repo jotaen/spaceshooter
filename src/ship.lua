@@ -18,7 +18,7 @@ function Ship:decelerate(dt)
 end
 
 function Ship:rotate(degreeIncrement)
-    self.rotation = self.rotation - self.rotationSpeed * degreeIncrement
+    self.rotation = self.rotation + self.rotationSpeed * degreeIncrement
 end
 
 function Ship:rotateLeft(dt)

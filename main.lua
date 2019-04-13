@@ -4,7 +4,7 @@ local drawableShip = require('src.ui.drawableShip')
 local Camera = require('src.ui.camera')
 
 local world = nil
-local camera
+local camera = nil
 
 local time = os.time()
 local function remainingTime()

@@ -12,7 +12,7 @@ local function scoreValue(collidable)
 end
 
 local function defaultFighter()
-    return ship.make(vector.make(40, 40), 0)
+    return ship.make(vector.make(40, 40), 90)
 end
 
 local function makeRandomAsteroid(worldWidth, worldHeight)
