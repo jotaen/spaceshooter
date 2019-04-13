@@ -45,29 +45,8 @@ end
 function World:update(dt)
     Entity.move(self.fighter, dt)
 
-    if self.fighter.center.x < 0 then
-        self.fighter.center.x = 0
-        self.fighter.velocity.x = 0
-    end
-    if self.fighter.center.x > w then
-        self.fighter.center.x = w
-        self.fighter.velocity.x = 0
-    end
-    if self.fighter.center.y < 0 then
-        self.fighter.center.y = 0
-        self.fighter.velocity.y = 0
-    end
-    if self.fighter.center.y > h then
-        self.fighter.center.y = h
-        self.fighter.velocity.y = 0
-    end
-
     for i, asteroid in pairs(self.asteroids) do
         Entity.move(asteroid, dt)
-        if asteroid.center.x < -w or asteroid.center.x > 2 * w or asteroid.center.y < -h or asteroid.center.y > 2 * h
-        then
-            self.asteroids[i] = makeRandomAsteroid(self.width, self.height)
-        end
     end
 
     local collidables = { self.fighter }

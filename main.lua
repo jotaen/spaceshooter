@@ -1,9 +1,10 @@
 local World = require('src.world')
 local vector = require('src.geometry.vector')
 local drawableShip = require('src.ui.drawableShip')
-local camera = require('src.ui.camera').make()
+local Camera = require('src.ui.camera')
 
 local world = nil
+local camera
 
 local isLaserActive = false
 local laserSoundSource
@@ -22,6 +23,7 @@ function love.load()
     end
     laserSoundSource = love.audio.newSource("laser_sound.mp3", "static")
     laserSoundSource:setLooping(true)
+    camera = Camera.make(world.fighter.center, w, h)
 end
 
 function love.update(dt)
@@ -53,7 +55,7 @@ function love.update(dt)
 
     world:update(dt)
 
-    camera:moveTo(world.fighter)
+    camera:cameraCenterAt(world.fighter.center)
 end
 
 function love.mousepressed()
@@ -82,7 +84,7 @@ function love.draw()
     end
 
     love.graphics.setColor(0, 0.4, 0.4)
-    local polygon = drawableShip.make(camera:project(world.fighter), 20)
+    local polygon = drawableShip.make(camera:projectToCanvas(world.fighter), 20)
     love.graphics.polygon(
             "fill",
             polygon.v1.x, polygon.v1.y,
@@ -92,7 +94,7 @@ function love.draw()
 
     love.graphics.setColor(3, 1, 0.6)
     for _, asteroid in pairs(world.asteroids) do
-        local a = camera:project(asteroid)
+        local a = camera:projectToCanvas(asteroid)
         love.graphics.circle("fill", a.center.x, a.center.y, a.radius)
     end
 
