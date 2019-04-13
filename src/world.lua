@@ -15,11 +15,11 @@ local function defaultFighter()
     return ship.make(vector.make(40, 40), 90)
 end
 
-local function makeRandomAsteroid(worldWidth, worldHeight)
-    local MAX_OFFSET = worldWidth * 5;
+local function makeRandomAsteroid(center)
+    local MAX_OFFSET = 10000;
     local center = vector.make(
-            love.math.random(-MAX_OFFSET, MAX_OFFSET),
-            love.math.random(-MAX_OFFSET, MAX_OFFSET)
+            love.math.random(center.x-MAX_OFFSET, center.x+MAX_OFFSET),
+            love.math.random(center.y-MAX_OFFSET, center.y+MAX_OFFSET)
     )
     local radius = love.math.random(10, 200)
     local velocity = vector.make(
@@ -29,17 +29,17 @@ local function makeRandomAsteroid(worldWidth, worldHeight)
     return Asteroid.make(center, radius, velocity)
 end
 
-local function randomAsteroids(worldWidth, worldHeight)
+local function randomAsteroids(center)
     local newAsteroids = {}
     for i = 1, 500 do
-        newAsteroids[i] = makeRandomAsteroid(worldWidth, worldHeight)
+        newAsteroids[i] = makeRandomAsteroid(center)
     end
     return newAsteroids
 end
 
 function World:reset()
     self.fighter = defaultFighter()
-    self.asteroids = randomAsteroids(self.width, self.height)
+    self.asteroids = randomAsteroids(self.fighter.center)
 end
 
 function World:update(dt)
@@ -47,6 +47,10 @@ function World:update(dt)
 
     for i, asteroid in pairs(self.asteroids) do
         Entity.move(asteroid, dt)
+        local distanceToShip = vector.length(vector.subtract(asteroid.center, self.fighter.center))
+        if distanceToShip > 10000 then
+            self.asteroids[i] = makeRandomAsteroid(self.fighter.center)
+        end
     end
 
     local collidables = { self.fighter }
@@ -80,7 +84,7 @@ function World:update(dt)
 
     for i, asteroid in pairs(self.asteroids) do
         if asteroid.isDestroyed then
-            self.asteroids[i] = makeRandomAsteroid(self.width, self.height)
+            self.asteroids[i] = makeRandomAsteroid(self.fighter.center)
         end
     end
 end
