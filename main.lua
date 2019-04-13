@@ -16,7 +16,7 @@ function love.load()
     world = World.make(w, h)
     stars = {}
     for i = 1, 100 do
-        stars[i] = vector.make(love.math.random(0, w), love.math.random(0, h))
+        stars[i] = vector.make(love.math.random(0, 2*w), love.math.random(-2*h, 0))
     end
     camera = Camera.make(world.fighter.center, w, h)
 end
@@ -48,18 +48,30 @@ function love.update(dt)
         love.event.quit()
     end
 
+    local oldFighterCenter = world.fighter.center
+
     world:update(dt)
+
+    local cameraMovement = vector.subtract(oldFighterCenter, world.fighter.center)
+    for i, star in pairs(stars) do
+        stars[i] = vector.add(vector.scale(cameraMovement, i % 2 == 0 and 0.03 or 0.02), star)
+        if star.x < 0 or star.x > w or star.y > 0 or star.y < -h then
+            stars[i] = vector.make(love.math.random(0, 2 *w), love.math.random(-2*h, 0))
+        end
+    end
+
 
     camera:cameraCenterAt(world.fighter.center)
 end
 
 function love.draw()
+    love.graphics.scale(1, -1)
     love.graphics.setColor(1, 1, 1)
     for _, star in ipairs(stars) do
         love.graphics.points(star.x, star.y)
     end
 
-    love.graphics.scale(1, -1)
+
     local polygon = drawableShip.make(camera:projectToCanvas(world.fighter), 20)
 
     love.graphics.setColor(0, 0.4, 0.4)
