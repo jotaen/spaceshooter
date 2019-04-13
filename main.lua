@@ -6,9 +6,6 @@ local Camera = require('src.ui.camera')
 local world = nil
 local camera
 
-local isLaserActive = false
-local laserSoundSource
-
 local time = os.time()
 local function remainingTime()
     return time - os.time() + 60
@@ -21,8 +18,6 @@ function love.load()
     for i = 1, 100 do
         stars[i] = vector.make(love.math.random(0, w), love.math.random(0, h))
     end
-    laserSoundSource = love.audio.newSource("laser_sound.mp3", "static")
-    laserSoundSource:setLooping(true)
     camera = Camera.make(world.fighter.center, w, h)
 end
 
@@ -58,29 +53,10 @@ function love.update(dt)
     camera:cameraCenterAt(world.fighter.center)
 end
 
-function love.mousepressed()
-    isLaserActive = true
-    laserSoundSource:play()
-end
-
-function love.mousereleased()
-    isLaserActive = false
-    laserSoundSource:stop()
-end
-
 function love.draw()
     love.graphics.setColor(1, 1, 1)
     for _, star in ipairs(stars) do
         love.graphics.points(star.x, star.y)
-    end
-
-    if isLaserActive then
-        love.graphics.setColor(1, 0, 0)
-        local dir = vector.subtract(vector.make(love.mouse.getX(), love.mouse.getY()), world.fighter.center)
-        local scaledDir = vector.scale(dir, 1000)
-        local src = world.fighter.center
-        local target = vector.add(world.fighter.center, scaledDir)
-        love.graphics.line(src.x, src.y, target.x, target.y)
     end
 
     love.graphics.setColor(0, 0.4, 0.4)
