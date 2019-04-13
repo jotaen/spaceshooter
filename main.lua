@@ -77,7 +77,7 @@ function love.draw()
     end
     love.graphics.scale(1, -1)
 
-    local statusText = "TIME: " .. remainingTime() .. "s, SCORE: " .. world.score
+    local statusText = "TIME: " .. remainingTime() .. "s, SCORE: " .. world.score .. " POS: " .. math.floor(world.fighter.center.x / 10) .. ":" .. math.floor(world.fighter.center.y / 10)
     love.graphics.setColor(1, 1, 1)
     love.graphics.print(statusText, 20, h-30)
 end

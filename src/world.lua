@@ -16,12 +16,12 @@ local function defaultFighter()
 end
 
 local function makeRandomAsteroid(worldWidth, worldHeight)
-    local MAX_OFFSET = 1000;
+    local MAX_OFFSET = worldWidth * 5;
     local center = vector.make(
-            love.math.random(-MAX_OFFSET, worldWidth + MAX_OFFSET),
-            love.math.random(-MAX_OFFSET, worldHeight + MAX_OFFSET)
+            love.math.random(-MAX_OFFSET, MAX_OFFSET),
+            love.math.random(-MAX_OFFSET, MAX_OFFSET)
     )
-    local radius = love.math.random(10, 50)
+    local radius = love.math.random(10, 200)
     local velocity = vector.make(
             love.math.random(-100, 100),
             love.math.random(-100, 100)
@@ -31,7 +31,7 @@ end
 
 local function randomAsteroids(worldWidth, worldHeight)
     local newAsteroids = {}
-    for i = 1, 100 do
+    for i = 1, 500 do
         newAsteroids[i] = makeRandomAsteroid(worldWidth, worldHeight)
     end
     return newAsteroids
