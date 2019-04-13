@@ -2,7 +2,6 @@
 
 - Tracking camera
   - Fix axis inversion
-  - Remove laser
   - Adjust asteroid lifecycle
 
 # Backlog (unprioritised)
