@@ -22,3 +22,4 @@
 - Load weaons systems via second hand
 - Resource scarcity (e.g. not enough energy)
 - Shared resources (battery / engergy, drifting through space if out of power)
+- Game menu / screens (welcome, pause, highscore-list, help, …)
