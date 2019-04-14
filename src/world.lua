@@ -20,7 +20,7 @@ end
 local function makeRandomAsteroid(worldCenter, worldWidth, worldHeight)
     local radius = love.math.random(10, 100)
     local directionUnit = vector.rotateUnit(vector.make(0, 1), love.math.random(1, 360))
-    local minDistance = (worldWidth > worldHeight and worldWidth or worldHeight) / 2 + radius * 2
+    local minDistance = math.sqrt(worldWidth ^ 2 + worldHeight ^ 2) + radius * 2
     local distance = love.math.random(minDistance, MAX_ASTEROID_RELATIVE_DISTANCE)
     local offset = vector.scale(directionUnit, distance)
     local center = vector.add(worldCenter, offset)
