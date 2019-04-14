@@ -16,7 +16,10 @@ function love.load()
     world = World.make(w, h)
     stars = {}
     for i = 1, 100 do
-        stars[i] = vector.make(love.math.random(0, 2*w), love.math.random(-2*h, 0))
+        stars[i] = {
+            position = vector.make(love.math.random(0, 2*w), love.math.random(-2*h, 0)),
+            depth = love.math.random(1, 100) / 100
+        }
     end
     camera = Camera.make(world.fighter.center, w, h)
 end
@@ -54,21 +57,20 @@ function love.update(dt)
 
     local cameraMovement = vector.subtract(oldFighterCenter, world.fighter.center)
     for i, star in pairs(stars) do
-        stars[i] = vector.add(vector.scale(cameraMovement, i % 2 == 0 and 0.03 or 0.02), star)
-        if star.x < 0 or star.x > w or star.y > 0 or star.y < -h then
-            stars[i] = vector.make(love.math.random(0, 2 *w), love.math.random(-2*h, 0))
+        stars[i].position = vector.add(vector.scale(cameraMovement, star.depth * 0.05), star.position)
+        if star.position.x < 0 or star.position.x > w or star.position.y > 0 or star.position.y < -h then
+            stars[i].position = vector.make(love.math.random(0, 2*w), love.math.random(-2*h, 0))
         end
     end
-
 
     camera:cameraCenterAt(world.fighter.center)
 end
 
 function love.draw()
     love.graphics.scale(1, -1)
-    love.graphics.setColor(1, 1, 1)
     for _, star in ipairs(stars) do
-        love.graphics.points(star.x, star.y)
+        love.graphics.setColor(star.depth, star.depth, star.depth)
+        love.graphics.points(star.position.x, star.position.y)
     end
 
 
