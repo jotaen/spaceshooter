@@ -64,7 +64,7 @@ function love.update(dt)
 
     local cameraMovement = vector.subtract(oldFighterCenter, world.fighter.center)
     for i, star in pairs(stars) do
-        stars[i].position = vector.add(vector.scale(cameraMovement, star.distance * 0.15), star.position)
+        stars[i].position = vector.add(vector.scale(cameraMovement, star.distance * 0.5), star.position)
         if star.position.x < 0 or star.position.x > w or star.position.y > 0 or star.position.y < -h then
             local x = (star.position.x < 0 and w) or (star.position.x > w and 0) or nil
             local y = (star.position.y > 0 and h) or (star.position.y < -h and 0) or nil
@@ -97,8 +97,8 @@ function love.draw()
         local a = camera:projectToCanvas(asteroid)
         love.graphics.circle("fill", a.center.x, a.center.y, a.radius)
     end
-    love.graphics.scale(1, -1)
 
+    love.graphics.scale(1, -1)
     local statusText = "TIME: " .. remainingTime() .. "s, SCORE: " .. world.score .. " POS: " .. math.floor(world.fighter.center.x / 10) .. ":" .. math.floor(world.fighter.center.y / 10)
     love.graphics.setColor(1, 1, 1)
     love.graphics.print(statusText, 20, h-30)
