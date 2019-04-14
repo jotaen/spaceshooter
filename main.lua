@@ -11,15 +11,22 @@ local function remainingTime()
     return time - os.time() + 60
 end
 
+function makeRandomStar(w, h, x, y)
+    return {
+        position = vector.make(
+                x or love.math.random(0, w),
+                (y or love.math.random(0, h)) * -1
+        ),
+        distance = love.math.random(20, 100) / 100
+    }
+end
+
 function love.load()
     w, h = love.graphics.getDimensions()
     world = World.make(w, h)
     stars = {}
     for i = 1, 100 do
-        stars[i] = {
-            position = vector.make(love.math.random(0, 2*w), love.math.random(-2*h, 0)),
-            depth = love.math.random(1, 100) / 100
-        }
+        stars[i] = makeRandomStar(w, h)
     end
     camera = Camera.make(world.fighter.center, w, h)
 end
@@ -57,9 +64,11 @@ function love.update(dt)
 
     local cameraMovement = vector.subtract(oldFighterCenter, world.fighter.center)
     for i, star in pairs(stars) do
-        stars[i].position = vector.add(vector.scale(cameraMovement, star.depth * 0.05), star.position)
+        stars[i].position = vector.add(vector.scale(cameraMovement, star.distance * 0.15), star.position)
         if star.position.x < 0 or star.position.x > w or star.position.y > 0 or star.position.y < -h then
-            stars[i].position = vector.make(love.math.random(0, 2*w), love.math.random(-2*h, 0))
+            local x = (star.position.x < 0 and w) or (star.position.x > w and 0) or nil
+            local y = (star.position.y > 0 and h) or (star.position.y < -h and 0) or nil
+            stars[i] = makeRandomStar(w, h, x, y)
         end
     end
 
@@ -69,10 +78,9 @@ end
 function love.draw()
     love.graphics.scale(1, -1)
     for _, star in ipairs(stars) do
-        love.graphics.setColor(star.depth, star.depth, star.depth)
+        love.graphics.setColor(star.distance, star.distance, star.distance)
         love.graphics.points(star.position.x, star.position.y)
     end
-
 
     local polygon = drawableShip.make(camera:projectToCanvas(world.fighter), 20)
 
