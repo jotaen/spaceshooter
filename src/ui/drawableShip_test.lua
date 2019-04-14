@@ -1,7 +1,7 @@
-local assertVectorEquals = require('src.assertions').assertVectorEquals
+local assertVectorEquals = require('lib.geometry.assertions').assertVectorEquals
 local ship = require('src.ship')
 local drawableShip = require('src.ui.drawableShip')
-local vector = require('src.geometry.vector')
+local vector = require('lib.geometry.vector')
 
 function test_unrotatedShip()
     local s = ship.make(vector.make(0, 0), 0)

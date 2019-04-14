@@ -1,7 +1,7 @@
 local Camera = require('src.ui.camera')
-local vector = require('src.geometry.vector')
+local vector = require('lib.geometry.vector')
 local Entity = require('src.entity')
-local assertions = require('src.assertions')
+local assertions = require('lib.geometry.assertions')
 
 function test_cameraPointingToOrigin_doesNotTranslateEntity()
     local entity = Entity.make('dummy', vector.zero(), 1, vector.zero())

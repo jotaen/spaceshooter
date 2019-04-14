@@ -1,4 +1,4 @@
-local vector = require('src.geometry.vector')
+local vector = require('lib.geometry.vector')
 
 local function triangle(v1, v2, v3)
     return {

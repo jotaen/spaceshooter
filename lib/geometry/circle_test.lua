@@ -1,6 +1,6 @@
-local vector = require('src.geometry.vector')
+local vector = require('lib.geometry.vector')
 local lu = require('luaunit')
-local circle = require('src.geometry.circle')
+local circle = require('lib.geometry.circle')
 
 --
 -- CIRCLE CREATION

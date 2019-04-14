@@ -1,5 +1,5 @@
 local World = require('src.world')
-local vector = require('src.geometry.vector')
+local vector = require('lib.geometry.vector')
 local drawableShip = require('src.ui.drawableShip')
 local Camera = require('src.ui.camera')
 

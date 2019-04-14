@@ -1,5 +1,5 @@
 local lu = require('luaunit')
-local vector = require('src.geometry.vector')
+local vector = require('lib.geometry.vector')
 local Detector = require('src.collisionDetector')
 
 local function makeResolverSpy()

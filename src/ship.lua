@@ -1,4 +1,4 @@
-local vector = require('src.geometry.vector')
+local vector = require('lib.geometry.vector')
 local Entity = require('src.entity')
 
 local Ship = {}

@@ -1,4 +1,4 @@
-local circle = require('src.geometry.circle')
+local circle = require('lib.geometry.circle')
 
 local CollisionDetector = {}
 

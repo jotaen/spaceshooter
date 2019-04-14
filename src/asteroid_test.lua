@@ -1,6 +1,6 @@
 local lu = require('luaunit')
 local asteroid = require('src.asteroid')
-local vector = require('src.geometry.vector')
+local vector = require('lib.geometry.vector')
 
 function test_mergeAsteroidsCreatesJoint()
     local asteroid1 = asteroid.make(vector.make(0, 0), 2, vector.make(1, 1))

@@ -1,9 +1,9 @@
-local circle = require('src.geometry.circle')
+local circle = require('lib.geometry.circle')
 local ship = require('src.ship')
 local CollisionDetector = require('src.collisionDetector')
 local Entity = require('src.entity')
 local Asteroid = require('src.asteroid')
-local vector = require('src.geometry.vector')
+local vector = require('lib.geometry.vector')
 
 local MAX_ASTEROID_RELATIVE_DISTANCE = 10000;
 

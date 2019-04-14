@@ -1,6 +1,6 @@
 local Entity = require('src.entity')
-local circle = require('src.geometry.circle')
-local vector = require('src.geometry.vector')
+local circle = require('lib.geometry.circle')
+local vector = require('lib.geometry.vector')
 
 local Asteroid = {}
 

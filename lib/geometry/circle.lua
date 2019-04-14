@@ -1,4 +1,4 @@
-local vector = require('src.geometry.vector')
+local vector = require('lib.geometry.vector')
 
 --- @param center (vector)
 --- @param radius (number)

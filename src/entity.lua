@@ -1,4 +1,4 @@
-local vector = require('src.geometry.vector')
+local vector = require('lib.geometry.vector')
 
 local function move(entity, dt)
     local scaled = vector.scale(entity.velocity, dt)
