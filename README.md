@@ -1,6 +1,8 @@
 # spaceshooter
 
-A 2D space shooter game.
+A 2D space shooter game. You have 60s to destroy as many asteroids as you can. Be the force with you.
+
+![Little space craft flying around and detroying asteroids](demo.gif)
 
 ## Contributing
 
